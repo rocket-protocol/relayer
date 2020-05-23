@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./scripts/gaia-stakebird.sh
+./scripts/gaia-stakebird.sh local skip
 sleep 5
 
 make install
@@ -20,9 +20,5 @@ rly q bal ibc0
 rly q bal ibc1
 
 rly tx xfer ibc0 ibc1 100000stake true $(rly keys show ibc1 testkey)
-rly q bal ibc0
-rly q bal ibc1
-
-rly tx xfer ibc1 ibc0 100000stake false $(rly keys show ibc0 testkey)
 rly q bal ibc0
 rly q bal ibc1

@@ -4,7 +4,7 @@ GAIA_REPO="$HOME/src/github.com/cosmos/gaia"
 GAIA_BRANCH=master
 
 STAKEBIRD_REPO="$HOME/src/github.com/rocket-protocol/stakebird"
-STAKEBIRD_BRANCH=master
+STAKEBIRD_BRANCH="shane/bondcurve"
 
 CHAIN_DATA="$(pwd)/data"
 
@@ -113,7 +113,7 @@ chainid1=ibc1
 echo "Generating configurations..."
 mkdir -p $CHAIN_DATA && cd $CHAIN_DATA
 echo -e "\n" | gaiad testnet -o $chainid0 --v 1 --chain-id $chainid0 --node-dir-prefix n --keyring-backend test &> /dev/null
-echo -e "\n" | staked testnet -o $chainid1 --v 1 --chain-id $chainid1 --node-dir-prefix n --keyring-backend test &> /dev/null
+echo -e "\n" | staked testnet -o $chainid1 --v 1 --chain-id $chainid1 --node-dir-prefix n --keyring-backend test
 
 cfgpth="n0/gaiad/config/config.toml"
 if [ "$(uname)" = "Linux" ]; then
@@ -170,9 +170,9 @@ else
 fi
 
 gclpth="n0/gaiacli/"
-gaiacli config --home $chainid0/$gclpth chain-id $chainid0 &> /dev/null
-gaiacli config --home $chainid0/$gclpth output json &> /dev/null
-gaiacli config --home $chainid0/$gclpth node http://localhost:26657 &> /dev/null
+gaiacli config --home $chainid0/$gclpth chain-id $chainid0
+gaiacli config --home $chainid0/$gclpth output json
+gaiacli config --home $chainid0/$gclpth node http://localhost:26657
 
 gclpth="n0/stakecli/"
 stakecli config --home $chainid1/$gclpth chain-id $chainid1 &> /dev/null
