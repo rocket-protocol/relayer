@@ -5,4 +5,4 @@ WORKDIR /data
 ENV HOME=/data
 COPY ./build/rly /usr/bin/rly
 
-["rly", "start"]
+CMD ["rly", "start"]
