@@ -1,0 +1,41 @@
+---
+kind: pipeline
+type: docker
+name: default-build
+
+steps:
+  - name: build
+    image: golang:1.14.2
+    commands:
+      - apt-get update && apt-get install -y cmake
+      - make test
+      - make build
+  - name: publish-docker
+    image: plugins/docker:18
+    settings:
+      dockerfile: Dockerfile
+      repo: publicawesome/rly
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      tags:
+        - latest
+        - v0.5.4
+    when:
+      branch: 
+        - v0.5.4-stakebird
+      event:
+        - push
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+    when:
+      status: [success, failure]
+---
+kind: signature
+hmac: 0b3c8da7333381336c3fb8644186ececb6526bebfe93f19d676697c0b3ba2b55
+
+...
